@@ -46,7 +46,8 @@ def get_weather(location:str) -> str:
 
     Return only your answer to the human question as a JSON object in form of key:value pairs. The final answer must be named with the key "FinalAnswer", and break it down into the different names and values that compose it, in the form of key-value pairs using the following keys: Location(string), Temperature (numeric), Units(string), Conditions(string).
 
-    What is the detailed weather where in {place}?
+    What is the weather in {place} right now?
+    Use the results you got from the search engine to answer the question, and don't invent a number.
 
     Assistant:
     """
@@ -64,9 +65,8 @@ def get_weather(location:str) -> str:
                                 verbose=True,
                                 #    max_iteration=2,
                                 #    return_intermediate_steps=True,
-                                handle_parsing_errors="If the final answer conforms to the requested format, or if you already know it, or you have all the information you need, return the answer as is."
+                                handle_parsing_errors="""return the final answer as is"""
                                 )    
-
 
     prompt_template = PromptTemplate(
         input_variables=["place"], template=template
